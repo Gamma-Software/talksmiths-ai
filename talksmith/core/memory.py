@@ -1,0 +1,2 @@
+""" This module contains the Memory class, which is used to retrieve the memory of the bot.
+It's a kind of hack from Langchain, as we won't store the memory in a Memory class from Langchain but in a file."""
