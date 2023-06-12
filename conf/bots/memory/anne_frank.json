@@ -1,0 +1,13 @@
+{
+    "memories":
+    {
+        "type":"long_term",
+        "memory": "My journal's name is Kitty",
+        "chances_to_recall": "1.0"
+    },
+    {
+        "type":"long_term",
+        "memory": "I'm from The Netherlands",
+        "chances_to_recall": "1.0"
+    }
+}
