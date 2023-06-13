@@ -44,7 +44,7 @@ setuptools.setup(
     url="https://github.com/Gamma-Software/talksmiths-ai",
     entry_points={
         "console_scripts": [
-            "talksmith=talksmith.main",
+            "talksmith=talksmith.main:main",
         ]
     },
     classifiers=[

@@ -1,31 +1,28 @@
-from langchain import OpenAI
-from langchain.memory import ConversationBufferMemory
 import os
-import asyncio
 import datetime
 
 import talksmith.utils.configuration as configuration
 from talksmith.core.bot import TalksmithBot
-from talksmith.hmi.chat import CLI
+from talksmith.hmi.chat import CLI, Streamlit
 from talksmith.core.io import export_chat_history
 
 class Core:
 
-    def __init__(self):
+    def __init__(self, interface):
         """Get the configuration and init the bot, its memory and its chains"""
-        self.conf = configuration.load()
-        print(conf)
-        self.hmi = CLI()
-        self.bot = TalksmithBot(OpenAI(temperature=0),
-                                          ConversationBufferMemory(
-                                              return_messages=True,
-                                              human_prefix="human",
-                                              ai_prefix="ai",
-                                              memory_key="memory"))
+        self.conf = configuration.load("conf/config.ini")
+
+        self.bot = TalksmithBot(self.conf)
+
+        if interface == "cli":
+            self.hmi = CLI("Anne Frank", "This is Anne Frank", self.bot.prompt)
+        else:
+            self.hmi = Streamlit("Anne Frank", "This is Anne Frank", self.bot.prompt)
+            self.hmi.setup(self.bot.process_input)
 
     def check_for_exit(self, user_input: str) -> bool:
         if user_input.lower() == 'exit':
-                export_input = input("Nice talking to you. Do you want to export our conversation? (Y/N): ")
+                export_input = input("\nNice talking to you. Do you want to export our conversation? (Y/N): ")
                 if export_input.lower() == 'y':
                     # Access the memory
                     memory = self.chatgpt_chain.memory.load_memory_variables({})
@@ -39,10 +36,20 @@ class Core:
 
     def run(self):
         """Get user input and process it"""
+        if isinstance(self.hmi, Streamlit):
+            return # Streamlit HMI does not need to run this
+
         end_chat = False
         while not end_chat:
-            user_input = self.hmi.get_user_input()
+            try:
+                user_input = self.hmi.get_user_input()
+            except KeyboardInterrupt:
+                user_input = "exit"
             end_chat = self.check_for_exit(user_input)
-            error_message = self.bot.process_input(chatgpt_chain, user_input)
-            if error_message is not None:
-                end_chat = True
+            if not end_chat:
+                no_error, message = self.bot.process_input(user_input)
+                if no_error:
+                    print("AI: " + message)
+                else:
+                    end_chat = True
+
