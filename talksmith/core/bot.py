@@ -29,7 +29,7 @@ class TalksmithBot:
             prompt=self.prompt,
             llm=llm,
             memory=memory,
-            verbose=False
+            verbose=conf.chat_debug
         )
 
         """self.chain = LLMChain(llm=chat, prompt=chat_prompt)
@@ -78,6 +78,7 @@ class TalksmithBot:
             response = self.conversation.predict(input=user_input)
             return True, response
         except Exception as e:
+            print(e)
             error_message = "AI Assistant encountered an error. Please try again later."
             print(error_message)
             return False, error_message

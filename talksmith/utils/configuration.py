@@ -12,6 +12,7 @@ class Config:
         self.__logging_log_level = parser.get('LOGGING', 'LOG_LEVEL')
         self.__logging_chat_history_path = parser.get('LOGGING', 'CHAT_HISTORY_PATH')
 
+        self.__chatbot_debug = parser.get('CHATBOT', 'CHATBOT_DEBUG')
         self.__chatbot_info_path = parser.get('CHATBOT', 'CHAT_INFO_PATH')
         self.__chatbot_temperature = parser.get('CHATBOT', 'TEMPERATURE')
         self.__chatbot_max_token = parser.get('CHATBOT', 'MAX_TOKENS')
@@ -31,6 +32,10 @@ class Config:
     @property
     def chat_history_path(self):
         return self.__logging_chat_history_path
+
+    @property
+    def chat_debug(self):
+        return self.__chatbot_debug
 
     @property
     def chatbot_info_path(self):
