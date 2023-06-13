@@ -22,7 +22,7 @@ class Streamlit:
         self.prompt = prompt
 
     def setup(self, process_input):
-        image = Image.open('conf/bots/anne_frank.jpg')
+        image = Image.open('conf/bots/anne_frank/anne_frank.jpg')
         self.st.set_page_config(page_title=self.title, page_icon=image)
         self.st.header(self.title)
 

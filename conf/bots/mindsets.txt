@@ -1,0 +1,37 @@
+Positive Mindsets:
+    Happy
+    Content
+    Excited
+    Joyful
+    Enthusiastic
+    Optimistic
+    Peaceful
+    Calm
+    Relaxed
+    Grateful
+
+Neutral Mindsets:
+    Fine
+    Okay
+    Contented
+    Indifferent
+    Bored
+
+Stressed or Overwhelmed Mindsets:
+    Overwhelmed
+    Anxious
+    Worried
+    Frustrated
+    Angry
+
+Negative Mindsets:
+    Upset
+    Depressed
+    Disappointed
+    Confused
+    Insecure
+    Nervous
+
+Motivated or Inspired Mindsets:
+    Motivated
+    Inspired
