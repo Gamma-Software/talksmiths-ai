@@ -32,23 +32,26 @@ class TalksmithBot:
 
 
     # Call LLM API to generate a response
-    async def generate_response(chain, user_input):
+    def generate_response(self, chain, user_input):
         response = await chain.arun(human_input=user_input)
         return response
 
-    # Process user input and display response or error message
-    async def process_input(chatgpt_chain, user_input):
-        sys.stdout.write(".....waiting for magic.....")
-        sys.stdout.flush()
+
+    def process_input(self, chatgpt_chain, user_input):
+        """Process user input and display response or error message
+
+        Args:
+            chatgpt_chain (_type_): _description_
+            user_input (_type_): _description_
+
+        Returns:
+            Bool: True if the process ended correctly
+            Str: optionnal error message
+        """
         try:
-            response = await generate_response(chatgpt_chain, user_input)
-            sys.stdout.write("\r" + " " * len(".....waiting for magic.....") + "\r")
-            sys.stdout.flush()
-            print(response, "\n")
-            return None
+            response = self.generate_response(chatgpt_chain, user_input)
+            return True, None
         except Exception as e:
-            sys.stdout.write("\r" + " " * len(".....waiting for magic.....") + "\r")
-            sys.stdout.flush()
             error_message = "AI Assistant encountered an error. Please try again later."
             print(error_message)
-            return error_message
+            return False, error_message
